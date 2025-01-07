@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block title %}编辑图书{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="mb-0">编辑图书信息</h4>
+            </div>
+            <div class="card-body">
+                <form method="POST">
+                    <div class="mb-3">
+                        <label for="title" class="form-label">书名</label>
+                        <input type="text" class="form-control" id="title" name="title" 
+                               value="{{ book.title }}" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="author" class="form-label">作者</label>
+                        <input type="text" class="form-control" id="author" name="author" 
+                               value="{{ book.author }}" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="isbn" class="form-label">ISBN</label>
+                        <input type="text" class="form-control" id="isbn" name="isbn" 
+                               value="{{ book.isbn }}" readonly>
+                        <div class="form-text">ISBN号码不可修改</div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="quantity" class="form-label">总数量</label>
+                        <input type="number" class="form-control" id="quantity" name="quantity" 
+                               value="{{ book.quantity }}" required min="{{ book.quantity - book.available }}">
+                        <div class="form-text">当前已借出 {{ book.quantity - book.available }} 本，新设置的总数量不能小于已借出数量</div>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <button type="submit" class="btn btn-primary">保存修改</button>
+                        <a href="{{ url_for('books') }}" class="btn btn-secondary">返回列表</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
